@@ -6,7 +6,15 @@ describe("iot", () => {
   anchor.setProvider(anchor.Provider.env());
 
   // Program client handle.
-  const program = anchor.workspace.Iot;
+  // const program = anchor.workspace.Iot;
+
+  const idl = JSON.parse(require('fs').readFileSync('./target/idl/iot.json', 'utf8'));
+
+  // Address of the deployed program.
+  const programId = new anchor.web3.PublicKey('38ksDUsErbv4NeK88Y7mXEEeQb7ne9V3AYAVbf1QDZ3F');
+
+  // Generate the program client from IDL.
+  const program = new anchor.Program(idl, programId);
 
   // Iot Data Store account.
   const iotDataStore = anchor.web3.Keypair.generate();
